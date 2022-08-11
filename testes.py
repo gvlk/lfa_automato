@@ -72,11 +72,11 @@ teste9.inserir(estado='q1', final=True, transicoes={'a': 'q2', 'b': 'q1'})
 teste9.inserir(estado='q2', final=False, transicoes={'a': 'q2', 'b': 'q2'})
 # teste9.mostrar_linguagem()
 
-# NÃO FINALIZADO Linguagem = Todas as cadeias do alfabeto com uma quantidade ímpar de 'a' e 'b'
+# Linguagem = Cadeias do alfabeto com uma quantidade ímpar de 'a' e 'b'
 teste10 = Automato(nome='teste10', alfabeto={'a', 'b'})
-teste10.inserir(estado='q0', final=False, transicoes={'a': 'q3', 'b': 'q3'})
+teste10.inserir(estado='q0', final=False, transicoes={'a': 'q1', 'b': 'q3'})
 teste10.inserir(estado='q1', final=False, transicoes={'a': 'q0', 'b': 'q2'})
-teste10.inserir(estado='q2', final=False, transicoes={'a': 'q3', 'b': 'q1'})
-teste10.inserir(estado='q3', final=True, transicoes={'a': 'q2', 'b': 'q1'})
+teste10.inserir(estado='q2', final=True, transicoes={'a': 'q3', 'b': 'q1'})
+teste10.inserir(estado='q3', final=False, transicoes={'a': 'q2', 'b': 'q0'})
 teste10.mostrar_linguagem()
 
