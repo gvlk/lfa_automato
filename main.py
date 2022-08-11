@@ -1,3 +1,5 @@
+# Guilherme Azambuja - 149 429
+
 from itertools import product
 
 
@@ -8,6 +10,7 @@ class Automato:
 		self.final = set()
 		self.estados = set()
 		self.alfabeto = alfabeto
+		self.linguagem = set()
 
 	class Nodo:
 
@@ -51,30 +54,27 @@ class Automato:
 			return None
 
 	def reconhecer(self, cadeia: str = 'λ'):
-		aux = self.inicial
-		for simbolo in cadeia:
-			conjunto_estados = aux.ponteiros[simbolo].copy()
-			aux = conjunto_estados.pop()
-		else:
-			if aux in self.final:
-				return True
+		if self.final:
+			aux = self.inicial
+			for simbolo in cadeia:
+				conjunto_estados = aux.ponteiros[simbolo].copy()
+				aux = conjunto_estados.pop()
 			else:
-				return False
+				if aux in self.final:
+					return True
+				else:
+					return False
+		else:
+			raise Exception("Não há estado final.")
 
-	def linguagem(self, tam_max):
+	def definir_linguagem(self, tam_max=6):
 		for i in range(1, tam_max+1):
 			for sequencia in product(self.alfabeto, repeat=i):
 				cadeia = ''.join(sequencia)
 				if self.reconhecer(cadeia):
-					print(cadeia)
+					self.linguagem.add(cadeia)
 
-
-teste1 = Automato(nome='teste1', alfabeto={'0', '1'})
-teste1.inserir(estado='q0', final=False, transicoes={'0': 'q0', '1': 'q1'})
-teste1.inserir(estado='q1', final=True, transicoes={'0': 'q0', '1': 'q2'})
-teste1.inserir(estado='q2', final=False, transicoes={'0': 'q2', '1': 'q1'})
-
-teste2 = Automato(nome='teste2', alfabeto={'a', 'b'})
-teste2.inserir(estado='q0', final=False, transicoes={'a': 'q0', 'b': 'q1'})
-teste2.inserir(estado='q1', final=True, transicoes={'a': 'q2', 'b': 'q2'})
-teste2.inserir(estado='q2', final=False, transicoes={'a': 'q2', 'b': 'q2'})
+	def mostrar_linguagem(self):
+		self.definir_linguagem()
+		lista = sorted(self.linguagem)
+		print(sorted(lista, key=len))
